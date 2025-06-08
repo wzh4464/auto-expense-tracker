@@ -29,9 +29,10 @@ check_requirements() {
         echo "❌ pyenv is required. Installing pyenv..."
         curl https://pyenv.run | bash
         export PATH="$HOME/.pyenv/bin:$PATH"
-        eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
     fi
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
 
     echo "✅ pyenv detected"
 
@@ -40,27 +41,25 @@ check_requirements() {
     if [ -f ".python-version" ]; then
         PYENV_VERSION=$(head -n 1 .python-version | tr -cd '0-9.')
         echo ".python-version detected: $PYENV_VERSION"
-        if [[ $PYENV_VERSION =~ ^3\.[8-9]$|^3\.1[0-1]$ ]]; then
+        if [[ $PYENV_VERSION =~ ^3\.(?:8|9|1[0-1])(?:\.[0-9]+)?$ ]]; then
             echo ".python-version specifies Python $PYENV_VERSION, trying to find/install..."
             if ! pyenv versions --bare | grep -q "^${PYENV_VERSION}"; then
                 echo "pyenv does not have $PYENV_VERSION, trying to install..."
                 pyenv install -s $PYENV_VERSION
             fi
             if pyenv versions --bare | grep -q "^${PYENV_VERSION}"; then
-                eval "$(pyenv init -)"
                 pyenv shell $PYENV_VERSION
                 SELECTED_PYTHON=$(pyenv which python || true)
             fi
         else
-            echo ".python-version content invalid ($PYENV_VERSION), falling back to auto-detect 3.8~3.11..."
+            echo ".python-version content invalid ($PYENV_VERSION), falling back to auto-detect 3.9~3.11..."
         fi
     fi
 
     if [ -z "$SELECTED_PYTHON" ]; then
-        PYTHON_CANDIDATES=(3.11 3.10 3.9 3.8)
+        PYTHON_CANDIDATES=(3.11 3.10 3.9)
         for ver in "${PYTHON_CANDIDATES[@]}"; do
             if pyenv versions --bare | grep -q "^${ver}"; then
-                eval "$(pyenv init -)"
                 pyenv shell $ver
                 SELECTED_PYTHON=$(pyenv which python || true)
                 break
@@ -71,7 +70,6 @@ check_requirements() {
             for ver in "${PYTHON_CANDIDATES[@]}"; do
                 echo "Trying to install Python $ver..."
                 pyenv install -s $ver && \
-                eval "$(pyenv init -)" && \
                 pyenv shell $ver && \
                 SELECTED_PYTHON=$(pyenv which python || true) && break
             done
@@ -79,7 +77,7 @@ check_requirements() {
     fi
 
     if [ -z "$SELECTED_PYTHON" ] || [ ! -x "$SELECTED_PYTHON" ]; then
-        echo "❌ Could not find or install a Python version between 3.8 and 3.11. Please install manually and retry."
+        echo "❌ Could not find or install a Python version between 3.9 and 3.11. Please install manually and retry."
         exit 1
     fi
 
