@@ -101,9 +101,6 @@ This helps automate changelogs and streamline the review process.
 - `docs: update architecture diagram`
 - `chore: update dependencies`
 
-**Enforcement:**
-Commit messages are checked in CI. Use [commitlint](https://commitlint.js.org/) or similar tools if needed.
-
 ---
 
 ## Code Review Checklist
