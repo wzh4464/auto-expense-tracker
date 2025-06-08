@@ -64,6 +64,7 @@ jobs:
 
       - name: Run security scan
         run: |
+          pip install uv
           uv pip freeze > requirements.txt
           pip-audit -r requirements.txt
 
