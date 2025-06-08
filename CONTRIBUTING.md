@@ -33,7 +33,7 @@ Thank you for considering contributing to this project! We welcome issues, featu
 
 - **Docstring Format:**
   All public modules, classes, functions, and methods must include docstrings.
-  We recommend using the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings) or [NumPy Docstring Standard](https://numpydoc.readthedocs.io/en/latest/format.html).
+  We recommend using the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings).
 
   **Example (Google Style):**
 
@@ -47,28 +47,6 @@ Thank you for considering contributing to this project! We welcome issues, featu
 
       Returns:
           int: The sum of a and b.
-      """
-      return a + b
-  ```
-
-  **Example (NumPy Style):**
-
-  ```python
-  def add_numbers(a, b):
-      """
-      Add two numbers.
-
-      Parameters
-      ----------
-      a : int
-          First number.
-      b : int
-          Second number.
-
-      Returns
-      -------
-      int
-          The sum of a and b.
       """
       return a + b
   ```
