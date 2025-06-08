@@ -30,6 +30,7 @@ dependencies = [
     "openai>=1.84.0",
     "anthropic>=0.52.2",
     "requests>=2.32.3",
+    "pip-audit>=2.9.0",
 ]
 
 [dependency-groups]
