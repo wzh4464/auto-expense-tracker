@@ -36,13 +36,14 @@ jobs:
           source $HOME/.cargo/env
           uv sync --dev
 
+      - name: Run pre-commit hooks
+        run: |
+          uv run pre-commit run --all-files
+
       - name: Lint with pylint
         run: |
           uv run pylint src/ --fail-under=8.0
 
-      - name: Format check with black
-        run: |
-          uv run black --check src/ tests/
 
       - name: Type check with mypy
         run: |
