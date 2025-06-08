@@ -66,7 +66,7 @@ jobs:
         run: |
           pip install uv
           uv pip freeze > requirements.txt
-          pip-audit -r requirements.txt
+          uv run pip-audit -r requirements.txt
 
       - name: Run Bandit security scan
         run: |
