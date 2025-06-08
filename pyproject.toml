@@ -9,7 +9,7 @@ packages = ["src"]
 name = "auto-expense-tracker"
 version = "0.1.0"
 description = "Automated expense tracking from photos and PDFs to MOZE"
-authors = [{name = "Zihan Niu", email = "wzh4464@gmail.com"}]
+authors = [{ name = "Zihan Ng", email = "wzh4464@gmail.com" }]
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.9,<3.12"
@@ -76,17 +76,13 @@ extend-exclude = '''
 '''
 
 [tool.pylint.messages_control]
-disable = [
-    "missing-docstring",
-    "too-few-public-methods",
-    "import-error"
-]
+disable = ["missing-docstring", "too-few-public-methods", "import-error"]
 
 [tool.pylint.format]
 max-line-length = 88
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.8"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
@@ -102,8 +98,17 @@ addopts = [
     "--cov=src",
     "--cov-branch",
     "--cov-report=term-missing:skip-covered",
-    "--cov-fail-under=80",
 ]
 
-[tool.bandit]
-exclude_dirs = ["tests", "docs"]
+[tool.coverage.run]
+omit = ["src/__init__.py", "src/*//__init__.py", "tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]
+fail_under = 80
