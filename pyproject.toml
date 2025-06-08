@@ -31,6 +31,7 @@ dependencies = [
     "anthropic>=0.52.2",
     "requests>=2.32.3",
     "pip-audit>=2.9.0",
+    "pre-commit>=4.2.0",
 ]
 
 [dependency-groups]
